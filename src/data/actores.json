@@ -1,0 +1,149 @@
+[
+  {
+    "id": "cfk",
+    "nombre": "Cristina Fernández de Kirchner",
+    "foto_url": null,
+    "partido_actual": "uxp",
+    "rol_actual": "Ex Presidenta / Senadora Nacional",
+    "camara": "Senado",
+    "provincia": "Santa Cruz",
+    "bloque": "Unión por la Patria",
+    "nivel": "nacional",
+    "biografia": "Abogada y política argentina. Presidenta de la Nación entre 2007 y 2015. Senadora Nacional por Santa Cruz. Figura central del kirchnerismo y del peronismo progresista. Condenada en primera instancia en la causa Vialidad, actualmente apelada.",
+    "etiquetas": ["Kirchnerismo", "Peronismo", "Ex presidenta", "Alta exposición"],
+    "exposicion_mediatica": 95,
+    "influencia_interna": 90,
+    "citas_destacadas": [
+      "La economía bimonetaria es el problema estructural de la Argentina.",
+      "No van a poder. Nunca pudieron.",
+      "El lawfare es la nueva forma de proscripción política."
+    ],
+    "activo": true,
+    "conexiones": [
+      { "actor_id": "sm", "tipo": "alianza_electoral", "intensidad": 75, "descripcion": "Aliados en las elecciones 2023. Relación pragmática con tensiones post-derrota.", "desde": "2019" },
+      { "actor_id": "ak", "tipo": "tension_interna", "intensidad": 60, "descripcion": "Creciente distancia política por el armado del PJ bonaerense.", "desde": "2023" },
+      { "actor_id": "wdp", "tipo": "aliado_historico", "intensidad": 88, "descripcion": "Aliado político histórico, ex ministro de su gestión.", "desde": "2003" }
+    ],
+    "afinidades": [
+      { "partido_id": "uxp", "score": 92, "fundamento": "Fundadora y principal referente del espacio." },
+      { "partido_id": "pj", "score": 78, "fundamento": "Identidad peronista estructural, con tensiones internas." },
+      { "partido_id": "ucr", "score": 18, "fundamento": "Coincidencias puntuales en defensa de instituciones." },
+      { "partido_id": "pro", "score": 8, "fundamento": "Oposición histórica y estructural." },
+      { "partido_id": "lla", "score": 3, "fundamento": "Antagonismo ideológico total." }
+    ],
+    "proyectos": [
+      { "id": "p001", "titulo": "Reforma del sistema previsional — actualización por IPC", "expediente": "S-0412/24", "camara": "Senado", "estado": "En comisión", "fecha": "2024-03-01", "tematica": "Previsional", "url_hcdn": "" },
+      { "id": "p002", "titulo": "Derogación DNU 70/2023", "expediente": "S-0198/24", "camara": "Senado", "estado": "Media sanción", "fecha": "2024-02-14", "tematica": "Economía / Desregulación", "url_hcdn": "" },
+      { "id": "p003", "titulo": "Regulación de plataformas digitales y algoritmos", "expediente": "S-0876/23", "camara": "Senado", "estado": "Ingresado", "fecha": "2023-09-10", "tematica": "Tecnología", "url_hcdn": "" }
+    ],
+    "votaciones": [
+      { "id": "v001", "sesion_id": "ses-001", "voto": "negativo", "fecha": "2024-05-08", "tema": "Ley Bases", "resultado_sesion": "Aprobado con modificaciones" },
+      { "id": "v002", "sesion_id": "ses-003", "voto": "afirmativo", "fecha": "2024-03-14", "tema": "Reforma previsional", "resultado_sesion": "Aprobado" }
+    ],
+    "agenda_publica": [
+      { "id": "a001", "tema": "Ajuste fiscal y FMI", "frecuencia": "alta", "encuadre": "Crítico — el ajuste recae sobre sectores populares", "palabras_clave": ["FMI", "ajuste", "deuda", "pobreza"] },
+      { "id": "a002", "tema": "Lawfare y persecución judicial", "frecuencia": "alta", "encuadre": "Personal / político — denuncia uso político del Poder Judicial", "palabras_clave": ["lawfare", "Comodoro Py", "proscripción"] },
+      { "id": "a003", "tema": "Derechos humanos y memoria", "frecuencia": "media", "encuadre": "Histórico — defensa de los logros del kirchnerismo en DDHH", "palabras_clave": ["Malvinas", "memoria", "30.000", "DDHH"] }
+    ],
+    "noticias": [
+      { "id": "n001", "titulo": "Kirchner criticó el acuerdo con el FMI y convocó a una resistencia organizada", "medio": "La Nación", "url": "", "fecha": "2024-05-24", "categoria": "Economía" },
+      { "id": "n002", "titulo": "Presentó documento sobre modelo económico alternativo en congreso partidario", "medio": "Infobae", "url": "", "fecha": "2024-05-21", "categoria": "Política" },
+      { "id": "n003", "titulo": "Tensión con Kicillof se profundiza por el armado del PJ bonaerense", "medio": "Clarín", "url": "", "fecha": "2024-05-18", "categoria": "Política" }
+    ]
+  },
+  {
+    "id": "jm",
+    "nombre": "Javier Milei",
+    "foto_url": null,
+    "partido_actual": "lla",
+    "rol_actual": "Presidente de la Nación",
+    "camara": null,
+    "provincia": "CABA",
+    "bloque": "La Libertad Avanza",
+    "nivel": "nacional",
+    "biografia": "Economista y político argentino. Ex diputado nacional por CABA (2021-2023). Presidente de la Nación desde diciembre de 2023. Referente del libertarismo en Argentina, defensor del libre mercado, la dolarización y la eliminación del Banco Central.",
+    "etiquetas": ["Libertarismo", "Anarcocapitalismo", "Presidente", "Alta exposición"],
+    "exposicion_mediatica": 99,
+    "influencia_interna": 95,
+    "citas_destacadas": [
+      "Viva la libertad, carajo.",
+      "El Estado es una asociación criminal.",
+      "No hay plata."
+    ],
+    "activo": true,
+    "conexiones": [
+      { "actor_id": "vm", "tipo": "aliado_historico", "intensidad": 95, "descripcion": "Hermana y secretaria general de la Presidencia. Figura clave de su espacio.", "desde": "2021" },
+      { "actor_id": "sm", "tipo": "rival_politico", "intensidad": 80, "descripcion": "Oposición directa. Compitieron en segunda vuelta en 2023.", "desde": "2023" },
+      { "actor_id": "mm", "tipo": "alianza_coyuntural", "intensidad": 55, "descripcion": "Apoyo legislativo del PRO a la Ley Bases, con tensiones crecientes.", "desde": "2023" }
+    ],
+    "afinidades": [
+      { "partido_id": "lla", "score": 99, "fundamento": "Fundador y líder indiscutido del espacio." },
+      { "partido_id": "pro", "score": 48, "fundamento": "Alianza legislativa pragmática, divergencias ideológicas." },
+      { "partido_id": "ucr", "score": 22, "fundamento": "Apoyo puntual de sectores pro-mercado de la UCR." },
+      { "partido_id": "pj", "score": 5, "fundamento": "Antagonismo estructural con el peronismo." },
+      { "partido_id": "uxp", "score": 2, "fundamento": "Oposición total al kirchnerismo." }
+    ],
+    "proyectos": [
+      { "id": "p004", "titulo": "Ley Bases y Puntos de Partida para la Libertad de los Argentinos", "expediente": "EX-2024-30", "camara": "Diputados", "estado": "Promulgada", "fecha": "2024-06-28", "tematica": "Reforma estructural", "url_hcdn": "" },
+      { "id": "p005", "titulo": "DNU 70/2023 — Desregulación y reforma del Estado", "expediente": "DNU-70/23", "camara": "Ejecutivo", "estado": "En vigor / impugnado", "fecha": "2023-12-20", "tematica": "Economía / Desregulación", "url_hcdn": "" }
+    ],
+    "votaciones": [
+      { "id": "v003", "sesion_id": "ses-002", "voto": "afirmativo", "fecha": "2024-04-26", "tema": "DNU 70/2023 — ratificación", "resultado_sesion": "No alcanzó quórum" }
+    ],
+    "agenda_publica": [
+      { "id": "a004", "tema": "Equilibrio fiscal / déficit cero", "frecuencia": "alta", "encuadre": "Central — el ajuste como condición de posibilidad de todo", "palabras_clave": ["déficit", "ajuste", "superávit", "casta"] },
+      { "id": "a005", "tema": "Dolarización / reforma monetaria", "frecuencia": "media", "encuadre": "Propuesta estructural — eliminar el Banco Central", "palabras_clave": ["dolarización", "BCRA", "peso", "emisión"] },
+      { "id": "a006", "tema": "Anticomunismo / batalla cultural", "frecuencia": "alta", "encuadre": "Ideológico — guerra contra el socialismo y el colectivismo", "palabras_clave": ["socialismo", "libertad", "casta", "zurdo"] }
+    ],
+    "noticias": [
+      { "id": "n004", "titulo": "Milei firmó el Pacto de Mayo con 18 gobernadores en Tucumán", "medio": "Infobae", "url": "", "fecha": "2024-07-09", "categoria": "Política" },
+      { "id": "n005", "titulo": "El Presidente defendió el superávit fiscal como logro histórico ante el FMI", "medio": "La Nación", "url": "", "fecha": "2024-05-20", "categoria": "Economía" },
+      { "id": "n006", "titulo": "Tensión con el PRO tras las declaraciones de Macri sobre la coalición", "medio": "Clarín", "url": "", "fecha": "2024-05-15", "categoria": "Política" }
+    ]
+  },
+  {
+    "id": "mm",
+    "nombre": "Mauricio Macri",
+    "foto_url": null,
+    "partido_actual": "pro",
+    "rol_actual": "Ex Presidente / Presidente del PRO",
+    "camara": null,
+    "provincia": "CABA",
+    "bloque": "PRO",
+    "nivel": "nacional",
+    "biografia": "Ingeniero civil y político. Jefe de Gobierno de CABA (2007-2015). Presidente de la Nación (2015-2019). Presidente del partido PRO desde su fundación. Figura central de la centroderecha argentina. Actualmente con rol de armador político desde el exterior.",
+    "etiquetas": ["PRO", "Centro-derecha", "Ex presidente", "Armador político"],
+    "exposicion_mediatica": 82,
+    "influencia_interna": 75,
+    "citas_destacadas": [
+      "Nos robaron la historia.",
+      "Gradualismo fue un error que no voy a volver a cometer.",
+      "Argentina puede ser potencia mundial."
+    ],
+    "activo": true,
+    "conexiones": [
+      { "actor_id": "jm", "tipo": "alianza_coyuntural", "intensidad": 55, "descripcion": "Apoyo al gobierno de Milei con tensiones crecientes por rol del PRO.", "desde": "2023" },
+      { "actor_id": "ph", "tipo": "tension_interna", "intensidad": 65, "descripcion": "Disputa por el liderazgo del PRO y su posición frente a LLA.", "desde": "2023" },
+      { "actor_id": "cfk", "tipo": "rival_historico", "intensidad": 90, "descripcion": "Oposición estructural. Antagonismo ideológico y personal.", "desde": "2007" }
+    ],
+    "afinidades": [
+      { "partido_id": "pro", "score": 97, "fundamento": "Fundador y presidente del partido." },
+      { "partido_id": "lla", "score": 52, "fundamento": "Cercanía ideológica en economía, tensiones por poder político." },
+      { "partido_id": "ucr", "score": 45, "fundamento": "Alianza histórica en JxC, hoy fragmentada." },
+      { "partido_id": "pj", "score": 12, "fundamento": "Cooperación puntual en temas de gestión." },
+      { "partido_id": "uxp", "score": 4, "fundamento": "Oposición histórica al kirchnerismo." }
+    ],
+    "proyectos": [
+      { "id": "p006", "titulo": "Apoyo PRO a Ley Bases — declaración de bancada", "expediente": "D-1823/24", "camara": "Diputados", "estado": "Apoyado", "fecha": "2024-05-01", "tematica": "Reforma estructural", "url_hcdn": "" }
+    ],
+    "votaciones": [],
+    "agenda_publica": [
+      { "id": "a007", "tema": "Rol del PRO frente al gobierno de Milei", "frecuencia": "alta", "encuadre": "Estratégico — definir si el PRO es socio o competidor de LLA", "palabras_clave": ["PRO", "coalición", "fusión", "identidad"] },
+      { "id": "a008", "tema": "Reforma del Estado y apertura económica", "frecuencia": "media", "encuadre": "Continuidad ideológica con su gobierno (2015-2019)", "palabras_clave": ["reforma", "apertura", "inversión", "Estado"] }
+    ],
+    "noticias": [
+      { "id": "n007", "titulo": "Macri afirmó que el PRO no se fusionará con La Libertad Avanza", "medio": "La Nación", "url": "", "fecha": "2024-05-22", "categoria": "Política" },
+      { "id": "n008", "titulo": "Regresó al país y se reunió con dirigentes del PRO para definir estrategia electoral", "medio": "Infobae", "url": "", "fecha": "2024-05-10", "categoria": "Política" }
+    ]
+  }
+]

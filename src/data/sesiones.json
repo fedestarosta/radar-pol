@@ -1,0 +1,30 @@
+[
+  {
+    "id": "ses-001",
+    "camara": "Senado",
+    "fecha": "2024-05-08",
+    "tema_principal": "Ley Bases y Puntos de Partida para la Libertad de los Argentinos",
+    "tipo": "Ordinaria"
+  },
+  {
+    "id": "ses-002",
+    "camara": "Diputados",
+    "fecha": "2024-04-26",
+    "tema_principal": "DNU 70/2023 — Desregulación económica",
+    "tipo": "Especial"
+  },
+  {
+    "id": "ses-003",
+    "camara": "Senado",
+    "fecha": "2024-03-14",
+    "tema_principal": "Reforma del sistema previsional",
+    "tipo": "Ordinaria"
+  },
+  {
+    "id": "ses-004",
+    "camara": "Diputados",
+    "fecha": "2023-11-15",
+    "tema_principal": "Presupuesto Nacional 2024",
+    "tipo": "Ordinaria"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "lla",
+    "nombre": "La Libertad Avanza",
+    "sigla": "LLA",
+    "color_hex": "#9B59B6",
+    "ideologia": "Libertarismo / Anarcocapitalismo",
+    "coalicion": "La Libertad Avanza"
+  },
+  {
+    "id": "uxp",
+    "nombre": "Unión por la Patria",
+    "sigla": "UxP",
+    "color_hex": "#2980B9",
+    "ideologia": "Peronismo / Kirchnerismo",
+    "coalicion": "Unión por la Patria"
+  },
+  {
+    "id": "pro",
+    "nombre": "PRO",
+    "sigla": "PRO",
+    "color_hex": "#F39C12",
+    "ideologia": "Centro-derecha / Liberal-conservadurismo",
+    "coalicion": "Juntos por el Cambio"
+  },
+  {
+    "id": "ucr",
+    "nombre": "Unión Cívica Radical",
+    "sigla": "UCR",
+    "color_hex": "#E74C3C",
+    "ideologia": "Centroismo / Social-liberalismo",
+    "coalicion": "Juntos por el Cambio"
+  },
+  {
+    "id": "pj",
+    "nombre": "Partido Justicialista",
+    "sigla": "PJ",
+    "color_hex": "#1ABC9C",
+    "ideologia": "Peronismo",
+    "coalicion": "Unión por la Patria"
+  }
+]

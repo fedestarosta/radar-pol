@@ -229,6 +229,14 @@ function SectionTitle({ icon, title }) {
   );
 }
 
+function FilterLabel({ children }) {
+  return (
+    <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#787774", marginTop: 2 }}>
+      {children}
+    </div>
+  );
+}
+
 function Card({ children, style = {} }) {
   const [hovered, setHovered] = useState(false);
   return (
@@ -252,7 +260,7 @@ function Card({ children, style = {} }) {
 
 // ─── Sidebar ──────────────────────────────────────────────────────────────────
 
-function Sidebar({ actores, selected, onSelect, filters, onFilterChange }) {
+function Sidebar({ actores, selected, onSelect, filters, onFilterChange, regionesAplicacion, regionesRepresentacion }) {
   return (
     <aside
       style={{
@@ -289,6 +297,20 @@ function Sidebar({ actores, selected, onSelect, filters, onFilterChange }) {
           <option value="">Todas las cámaras</option>
           <option value="Senado">Senado</option>
           <option value="Diputados">Diputados</option>
+        </select>
+        <FilterLabel>Aplicación</FilterLabel>
+        <select value={filters.region_aplicacion} onChange={(e) => onFilterChange("region_aplicacion", e.target.value)} style={selectStyle}>
+          <option value="">Todas las regiones</option>
+          {regionesAplicacion.map((r) => (
+            <option key={r} value={r}>{r}</option>
+          ))}
+        </select>
+        <FilterLabel>Representación</FilterLabel>
+        <select value={filters.region_representacion} onChange={(e) => onFilterChange("region_representacion", e.target.value)} style={selectStyle}>
+          <option value="">Todas las regiones</option>
+          {regionesRepresentacion.map((r) => (
+            <option key={r} value={r}>{r}</option>
+          ))}
         </select>
       </div>
 
@@ -1046,6 +1068,192 @@ function NoticiasSection({ noticias }) {
   );
 }
 
+// ─── Compass ──────────────────────────────────────────────────────────────────
+
+const COMPASS_AXES = {
+  socialismo_liberalismo:       { left: "Socialismo",    right: "Liberalismo",      label: "Socialismo ↔ Liberalismo" },
+  totalitarismo_libertarianismo:{ left: "Totalitarismo", right: "Libertarianismo",  label: "Totalitarismo ↔ Libertarianismo" },
+  nacionalismo_conservadurismo: { left: "Nacionalismo",  right: "Conservadurismo",  label: "Nacionalismo ↔ Conservadurismo" },
+  revolucionario_reaccionario:  { left: "Revolucionario",right: "Reaccionario",     label: "Revolucionario ↔ Reaccionario" },
+};
+
+function CompassView({ actores, onSelectActor }) {
+  const [axisX, setAxisX] = useState("socialismo_liberalismo");
+  const [axisY, setAxisY] = useState("totalitarismo_libertarianismo");
+  const [tooltip, setTooltip] = useState(null);
+
+  const W = 680, H = 480, PAD = 72;
+  const innerW = W - PAD * 2;
+  const innerH = H - PAD * 2;
+
+  const toSvgX = (v) => PAD + ((v + 100) / 200) * innerW;
+  const toSvgY = (v) => H - PAD - ((v + 100) / 200) * innerH;
+
+  const withCompass = actores.filter((a) => a.compass);
+
+  const axX = COMPASS_AXES[axisX];
+  const axY = COMPASS_AXES[axisY];
+
+  const gridVals = [-75, -50, -25, 25, 50, 75];
+
+  return (
+    <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", background: "#F7F6F3" }}>
+      {/* Controls */}
+      <div
+        style={{
+          padding: "12px 28px",
+          background: "#fff",
+          borderBottom: "1px solid #EAEAEA",
+          display: "flex",
+          gap: 16,
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#787774" }}>Eje X</span>
+          <select value={axisX} onChange={(e) => setAxisX(e.target.value)} style={{ ...selectStyle, width: 230 }}>
+            {Object.entries(COMPASS_AXES).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
+          </select>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#787774" }}>Eje Y</span>
+          <select value={axisY} onChange={(e) => setAxisY(e.target.value)} style={{ ...selectStyle, width: 230 }}>
+            {Object.entries(COMPASS_AXES).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
+          </select>
+        </div>
+        <span style={{ fontSize: 11, color: "#787774", marginLeft: "auto" }}>
+          {withCompass.length} actores · click para abrir perfil
+        </span>
+      </div>
+
+      {/* Canvas */}
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "24px 32px",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <div style={{ perspective: "1100px" }}>
+          <div
+            style={{
+              transform: "rotateX(40deg) rotateZ(-2deg)",
+              transformOrigin: "center 60%",
+            }}
+          >
+            <svg
+              width={W}
+              height={H}
+              style={{ display: "block", filter: "drop-shadow(0 12px 32px rgba(0,0,0,0.08))" }}
+              onMouseLeave={() => setTooltip(null)}
+            >
+              {/* Background plane */}
+              <rect x={0} y={0} width={W} height={H} rx={12} fill="#FFFFFF" stroke="#EAEAEA" strokeWidth={1} />
+              <rect x={PAD} y={PAD} width={innerW} height={innerH} fill="#FAFAF9" />
+
+              {/* Grid lines */}
+              {gridVals.map((v) => (
+                <g key={v}>
+                  <line x1={toSvgX(v)} y1={PAD} x2={toSvgX(v)} y2={H - PAD} stroke="#EAEAEA" strokeWidth={1} />
+                  <line x1={PAD} y1={toSvgY(v)} x2={W - PAD} y2={toSvgY(v)} stroke="#EAEAEA" strokeWidth={1} />
+                </g>
+              ))}
+
+              {/* Main axes */}
+              <line x1={PAD} y1={H / 2} x2={W - PAD} y2={H / 2} stroke="#2F3437" strokeWidth={1.5} />
+              <line x1={W / 2} y1={PAD} x2={W / 2} y2={H - PAD} stroke="#2F3437" strokeWidth={1.5} />
+
+              {/* Axis arrowheads */}
+              <polygon points={`${W - PAD},${H / 2 - 4} ${W - PAD + 8},${H / 2} ${W - PAD},${H / 2 + 4}`} fill="#2F3437" />
+              <polygon points={`${PAD},${H / 2 - 4} ${PAD - 8},${H / 2} ${PAD},${H / 2 + 4}`} fill="#2F3437" />
+              <polygon points={`${W / 2 - 4},${PAD} ${W / 2},${PAD - 8} ${W / 2 + 4},${PAD}`} fill="#2F3437" />
+              <polygon points={`${W / 2 - 4},${H - PAD} ${W / 2},${H - PAD + 8} ${W / 2 + 4},${H - PAD}`} fill="#2F3437" />
+
+              {/* Axis end labels */}
+              <text x={W - PAD + 12} y={H / 2 + 4} fontSize={10} fill="#787774" fontFamily="'Syne',sans-serif" fontWeight={700} letterSpacing="0.06em" textAnchor="start">{axX.right.toUpperCase()}</text>
+              <text x={PAD - 12} y={H / 2 + 4} fontSize={10} fill="#787774" fontFamily="'Syne',sans-serif" fontWeight={700} letterSpacing="0.06em" textAnchor="end">{axX.left.toUpperCase()}</text>
+              <text x={W / 2} y={PAD - 14} fontSize={10} fill="#787774" fontFamily="'Syne',sans-serif" fontWeight={700} letterSpacing="0.06em" textAnchor="middle">{axY.right.toUpperCase()}</text>
+              <text x={W / 2} y={H - PAD + 20} fontSize={10} fill="#787774" fontFamily="'Syne',sans-serif" fontWeight={700} letterSpacing="0.06em" textAnchor="middle">{axY.left.toUpperCase()}</text>
+
+              {/* Origin label */}
+              <text x={W / 2 + 6} y={H / 2 - 6} fontSize={9} fill="#EAEAEA" fontFamily="'Syne',sans-serif" textAnchor="start">0</text>
+
+              {/* Actor dots */}
+              {withCompass.map((a) => {
+                const cx = toSvgX(a.compass[axisX] ?? 0);
+                const cy = toSvgY(a.compass[axisY] ?? 0);
+                const p = getPartido(a.partido_actual);
+                const color = p?.color_hex || "#787774";
+                return (
+                  <g
+                    key={a.id}
+                    onMouseEnter={(e) => setTooltip({ actor: a, x: e.clientX, y: e.clientY })}
+                    onMouseMove={(e) => setTooltip({ actor: a, x: e.clientX, y: e.clientY })}
+                    onMouseLeave={() => setTooltip(null)}
+                    onClick={() => onSelectActor(a)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <circle cx={cx} cy={cy} r={9} fill={color} fillOpacity={0.18} stroke={color} strokeWidth={1.5} />
+                    <text
+                      x={cx}
+                      y={cy + 4}
+                      fontSize={8}
+                      fill={color}
+                      fontFamily="'Syne',sans-serif"
+                      fontWeight={700}
+                      textAnchor="middle"
+                      style={{ pointerEvents: "none" }}
+                    >
+                      {initials(a.nombre)}
+                    </text>
+                  </g>
+                );
+              })}
+            </svg>
+          </div>
+        </div>
+
+        {/* Tooltip — fuera del transform */}
+        {tooltip && (
+          <div
+            style={{
+              position: "fixed",
+              top: tooltip.y - 68,
+              left: tooltip.x + 14,
+              background: "#fff",
+              border: "1px solid #EAEAEA",
+              borderRadius: 8,
+              padding: "8px 12px",
+              boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
+              pointerEvents: "none",
+              zIndex: 100,
+              minWidth: 160,
+            }}
+          >
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#111111", fontFamily: "'Syne',sans-serif" }}>
+              {tooltip.actor.nombre}
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 4 }}>
+              <PartidoBadge partidoId={tooltip.actor.partido_actual} small />
+              <span style={{ fontSize: 11, color: "#787774" }}>{tooltip.actor.rol_actual}</span>
+            </div>
+            <div style={{ fontSize: 10, color: "#EAEAEA", marginTop: 6, borderTop: "1px solid #F7F6F3", paddingTop: 4 }}>
+              {axX.label.split("↔")[0].trim()}: <b style={{ color: "#787774" }}>{tooltip.actor.compass[axisX]}</b>
+              {" · "}
+              {axY.label.split("↔")[0].trim()}: <b style={{ color: "#787774" }}>{tooltip.actor.compass[axisY]}</b>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function EmptyState() {
   return (
     <div
@@ -1180,7 +1388,7 @@ function DetailPanel({ actor }) {
 
 // ─── Topbar ───────────────────────────────────────────────────────────────────
 
-function Topbar({ search, onSearch }) {
+function Topbar({ search, onSearch, view, onViewChange }) {
   return (
     <header
       style={{
@@ -1223,6 +1431,44 @@ function Topbar({ search, onSearch }) {
           MVP · β
         </span>
       </div>
+
+      {/* View toggle */}
+      <div
+        style={{
+          display: "flex",
+          background: "#F7F6F3",
+          border: "1px solid #EAEAEA",
+          borderRadius: 6,
+          padding: 2,
+          gap: 2,
+        }}
+      >
+        {[
+          { id: "perfiles", label: "Perfiles" },
+          { id: "mapa", label: "Mapa político" },
+        ].map((v) => (
+          <button
+            key={v.id}
+            onClick={() => onViewChange(v.id)}
+            style={{
+              padding: "4px 12px",
+              fontSize: 11,
+              fontWeight: 600,
+              fontFamily: "'Syne', sans-serif",
+              letterSpacing: "0.03em",
+              background: view === v.id ? "#fff" : "transparent",
+              color: view === v.id ? "#111111" : "#787774",
+              border: view === v.id ? "1px solid #EAEAEA" : "1px solid transparent",
+              borderRadius: 4,
+              cursor: "pointer",
+              transition: "all 0.12s",
+            }}
+          >
+            {v.label}
+          </button>
+        ))}
+      </div>
+
       <div style={{ flex: 1 }} />
       <input
         type="text"
@@ -1251,14 +1497,27 @@ const selectStyle = {
 
 export default function App() {
   const [selected, setSelected] = useState(null);
+  const [view, setView] = useState("perfiles");
   const [search, setSearch] = useState("");
-  const [filters, setFilters] = useState({ partido: "", nivel: "", camara: "" });
+  const [filters, setFilters] = useState({ partido: "", nivel: "", camara: "", region_aplicacion: "", region_representacion: "" });
+
+  const regionesAplicacion = useMemo(() => {
+    const vals = [...new Set(actoresData.map((a) => a.region_aplicacion).filter(Boolean))];
+    return ["Nacional", ...vals.filter((v) => v !== "Nacional").sort()];
+  }, []);
+
+  const regionesRepresentacion = useMemo(() => {
+    const vals = [...new Set(actoresData.map((a) => a.region_representacion).filter(Boolean))];
+    return ["Nacional", ...vals.filter((v) => v !== "Nacional").sort()];
+  }, []);
 
   const filtered = useMemo(() => {
     return actoresData.filter((a) => {
       if (filters.partido && a.partido_actual !== filters.partido) return false;
       if (filters.nivel && a.nivel !== filters.nivel) return false;
       if (filters.camara && a.camara !== filters.camara) return false;
+      if (filters.region_aplicacion && a.region_aplicacion !== filters.region_aplicacion) return false;
+      if (filters.region_representacion && a.region_representacion !== filters.region_representacion) return false;
       if (search && !a.nombre.toLowerCase().includes(search.toLowerCase())) return false;
       return true;
     });
@@ -1297,16 +1556,27 @@ export default function App() {
           zIndex: 1,
         }}
       >
-        <Topbar search={search} onSearch={setSearch} />
+        <Topbar search={search} onSearch={setSearch} view={view} onViewChange={setView} />
         <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
-          <Sidebar
-            actores={filtered}
-            selected={selected}
-            onSelect={setSelected}
-            filters={filters}
-            onFilterChange={handleFilterChange}
-          />
-          {selected ? <DetailPanel key={selected.id} actor={selected} /> : <EmptyState />}
+          {view === "mapa" ? (
+            <CompassView
+              actores={filtered}
+              onSelectActor={(a) => { setSelected(a); setView("perfiles"); }}
+            />
+          ) : (
+            <>
+              <Sidebar
+                actores={filtered}
+                selected={selected}
+                onSelect={setSelected}
+                filters={filters}
+                onFilterChange={handleFilterChange}
+                regionesAplicacion={regionesAplicacion}
+                regionesRepresentacion={regionesRepresentacion}
+              />
+              {selected ? <DetailPanel key={selected.id} actor={selected} /> : <EmptyState />}
+            </>
+          )}
         </div>
       </div>
     </>
